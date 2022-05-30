@@ -4,6 +4,8 @@ class GameObject:
     """
     def __init__(self, name: str, description: str) -> None:
         """
+         Base class of any object in the game.
+
         :param name: Name of what this is.
         :param description: Description of what this is.
         """

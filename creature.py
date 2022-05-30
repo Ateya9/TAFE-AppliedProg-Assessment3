@@ -9,6 +9,8 @@ class Creature(GameObject):
     """
     def __init__(self, name: str, description: str, level: int, hp: int, defence: int, attack: int) -> None:
         """
+        Base class of any creature in the game, including the player.
+
         :param name: What this creature is called.
         :param description: A description of this creature.
         :param level: This creature's level.
