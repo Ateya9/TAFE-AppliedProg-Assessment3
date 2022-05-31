@@ -35,19 +35,7 @@ class Creature(GameObject):
             return True
         return False
 
-    def attack_target(self, target: GameObject) -> None:
-        """
-        Attacks the target creature.
-        :param target: What is going to be attacked.
-        :return:
-        """
-        if target.can_be_attacked:
-            # TODO: Fix this.
-            target.__take_damage(self.attack)
-        else:
-            print(f"{target} can't be attacked.")
-
-    def __take_damage(self, initial_damage: int) -> None:
+    def take_damage(self, initial_damage: int) -> None:
         """
         This creature takes the specified damage (minus their defence).
         :param initial_damage: The amount of damage this creature should take (before defence is considered).

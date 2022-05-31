@@ -26,10 +26,7 @@ class NPC(Creature):
         :param player: This should always be the player object.
         :return:
         """
-        if self.hostile and self.can_be_attacked:
+        if self.can_be_attacked and self.hostile:
             if not self.is_dead():
-                self.attack_target(player)
-        elif self.can_be_attacked:
-            print(f"The {self.name} isn't aggressive. You should feel bad for attacking it.")
-        else:
-            print(f"You can't attack the {self.name}.")
+                player.take_damage(self.attack)
+                print(f"The {self.name} retaliates and hits you for {self.attack} damage.")
