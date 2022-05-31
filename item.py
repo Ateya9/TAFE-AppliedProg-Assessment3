@@ -6,3 +6,4 @@ class Item(GameObject):
         super().__init__(name, description)
         self.__visible = visible
         self.estimated_level = estimated_level
+        self.can_equip = False
