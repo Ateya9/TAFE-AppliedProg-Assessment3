@@ -45,4 +45,6 @@ class Creature(GameObject):
         if final_damage < 0:
             final_damage = 0
         self.hp = self.hp - final_damage
+        if self.hp < 0:
+            self.hp = 0
 
