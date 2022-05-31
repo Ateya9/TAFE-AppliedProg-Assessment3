@@ -5,21 +5,20 @@ class NPC(Creature):
     """
     A non-playable character.
     """
-    def __init__(self, name: str, description: str, level: int, hp: int, defence: int, attack: int, hostile: bool):
+    def __init__(self, name: str, description: str, level: int, max_hp: int, defence: int, attack: int, hostile: bool):
         """
         A non-playable character.
 
         :param name: Name of this NPC.
         :param description: Description of this NPC.
         :param level: Level of this NPC.
-        :param hp: How many hit points this NPC has.
+        :param max_hp: How many hit points this NPC has.
         :param defence: How much defence this NPC has.
         :param attack: How much attack this NPC has.
         :param hostile: Is this NPC hostile toward the player?
         """
-        super().__init__(name, description, level, hp, defence, attack)
+        super().__init__(name, description, level, max_hp, defence, attack)
         self.hostile = hostile
-        self.can_be_attacked = True
 
     def retaliate(self, player: Creature) -> None:
         """
