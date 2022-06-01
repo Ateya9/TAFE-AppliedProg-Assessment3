@@ -99,7 +99,7 @@ class Player(Creature):
                 result.append(item)
         return result
 
-    def add_item_to_inv(self, target: GameObject):
+    def add_item_to_inv(self, target: GameObject) -> bool:
         """
         Attempts to add the specified GameObject to the player's inventory. If the GameObject isn't an item, prints a
         message stating that it cannot be added to the inventory. If the GameObject is a Weapon or Armour, check if
@@ -116,7 +116,10 @@ class Player(Creature):
                     print(f"You've already got a {target.name} in your inventory.")
                 else:
                     self.inventory.append(target)
+                    return True
             elif isinstance(target, Consumable):
                 self.inventory.append(target)
+                return True
         else:
             print(f"{target.name} can't be put into your inventory.")
+        return False
