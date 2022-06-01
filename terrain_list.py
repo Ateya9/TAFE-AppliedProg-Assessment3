@@ -2,9 +2,9 @@ from game_object import GameObject
 import random
 
 
-class TerrainList(GameObject):
-    def __init__(self, name: str, description: str) -> None:
-        super().__init__(name, description)
+class TerrainList:
+    def __init__(self) -> None:
+        super().__init__()
         self.__list_of_terrain: list[GameObject] = []
         self.__add_terrain("rock", "A medium sized rock.")
         self.__add_terrain("boulder", "A large boulder.")
