@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from game_object import GameObject
+from NPC import NPC
 
 
 class Location:
@@ -40,4 +41,10 @@ class Location:
         self.location_east.visible = True
         self.location_south.visible = True
         self.location_west.visible = True
+
+    def contains_hostile_NPC(self) -> bool:
+        for game_object in self.contents:
+            if isinstance(game_object, NPC) and game_object.hostile:
+                return True
+        return False
 
