@@ -4,11 +4,11 @@ from NPC import NPC
 
 class HostileNPCs(NPCList):
     """
-    An object containing a list of all of the available hostile NPCs.
+    An object containing a list of all available hostile NPCs.
     """
     def __init__(self) -> None:
         """
-        An object containing a list of all of the available hostile NPCs.
+        An object containing a list of all available hostile NPCs.
         """
         super().__init__()
         self.add_NPC(NPC("Goblin", "A small runty goblin.", 1, 5, 0, 1, True))
@@ -18,3 +18,7 @@ class HostileNPCs(NPCList):
         self.add_NPC(NPC("Ghoul", "A lanky ghoul with sharp claws.", 5, 8, 1, 3, True))
         self.add_NPC(NPC("Skeleton", "A skeleton, but not quite dead.", 6, 5, 0, 5, True))
         self.add_NPC(NPC("Bear", "A big 'ol bear. You should maybe run away.", 8, 15, 3, 6, True))
+        self.boss = NPC("Minotaur", "A huge minotaur. He must have the key.", 12, 20, 4, 6, True)
+
+    def get_boss(self) -> NPC:
+        return self.boss
