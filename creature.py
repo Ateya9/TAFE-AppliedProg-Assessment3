@@ -29,6 +29,7 @@ class Creature(GameObject):
     def is_dead(self) -> bool:
         """
         Returns true or false depending on whether this creature has any hit points left.
+
         :return:
         """
         if self.hp < 1:
@@ -38,6 +39,7 @@ class Creature(GameObject):
     def take_damage(self, initial_damage: int) -> None:
         """
         This creature takes the specified damage (minus their defence).
+
         :param initial_damage: The amount of damage this creature should take (before defence is considered).
         :return:
         """
@@ -47,4 +49,15 @@ class Creature(GameObject):
         self.hp = self.hp - final_damage
         if self.hp < 0:
             self.hp = 0
+
+    def heal(self, amount: int) -> None:
+        """
+        Heals this creature for the specified amount. Cannot be healed above max hp.
+
+        :param amount: Amount to heal this creature for.
+        :return:
+        """
+        self.hp = self.hp + amount
+        if self.hp > self.max_hp:
+            self.hp = self.max_hp
 
