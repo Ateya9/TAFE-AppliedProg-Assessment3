@@ -47,6 +47,7 @@ class Creature(GameObject):
         if final_damage < 0:
             final_damage = 0
         self.hp = self.hp - final_damage
+        print(f"The {self.name} takes {final_damage} damage.")
         if self.hp < 0:
             self.hp = 0
 
@@ -60,4 +61,5 @@ class Creature(GameObject):
         self.hp = self.hp + amount
         if self.hp > self.max_hp:
             self.hp = self.max_hp
+        print(f"The {self.name} is now on {self.hp} hp.")
 
