@@ -15,4 +15,4 @@ class Location(GameObject):
         self.location_east = location_east
         self.location_south = location_south
         self.location_west = location_west
-        self.location_contents = location_contents
+        self.contents = location_contents
