@@ -7,10 +7,6 @@ from NPC import NPC
 class Location:
     def __init__(self, location_contents: list[GameObject]) -> None:
         super().__init__()
-        self.location_north: Location = None
-        self.location_east: Location = None
-        self.location_south: Location = None
-        self.location_west: Location = None
         self.contents = location_contents
         self.visible = False
 
@@ -37,10 +33,6 @@ class Location:
         :return:
         """
         self.visible = True
-        self.location_north.visible = True
-        self.location_east.visible = True
-        self.location_south.visible = True
-        self.location_west.visible = True
 
     def contains_hostile_NPC(self) -> bool:
         for game_object in self.contents:
