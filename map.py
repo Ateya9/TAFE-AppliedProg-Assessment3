@@ -1,5 +1,6 @@
 from game_object import GameObject
 from location import Location
+from NPC import NPC
 from hostile_NPCs import HostileNPCs
 from friendly_NPCs import FriendlyNPCs
 from terrain_list import TerrainList
@@ -54,7 +55,7 @@ class Map:
         create_terrain_feature = (random.randint(1, 10) <= 7)
         create_item = (random.randint(1, 10) <= 2)
         if create_hostile_NPC:
-            location_contents.append(GameObject("enemy", "An enemy. It's too far away to see any details."))
+            location_contents.append(self.__hostile_NPC_list.monster_placeholder)
         if create_friendly_NPC:
             location_contents.append(self.__friendly_NPC_list.get_random_NPC())
         if create_terrain_feature:
@@ -109,6 +110,7 @@ class Map:
         :param move_to_coord: The coordinates to move to.
         :return:
         """
+        # TODO: Make this location and adjacent locations visible on move.
         if move_to_coord is None:
             return False
         elif 0 > move_to_coord[0] >= Map.__MAP_DIMENSIONS:
@@ -129,3 +131,19 @@ class Map:
         :return:
         """
         return self.map_matrix[coord[0]][coord[1]]
+
+    def print_map(self) -> None:
+        output = []
+        for x in range(Map.__MAP_DIMENSIONS):
+            output.append([])
+            for y in range(Map.__MAP_DIMENSIONS):
+                location_symbol = " "
+                for game_object in self.map_matrix[x][y].contents:
+                    if isinstance(game_object, NPC):
+                        if not game_object.is_dead():
+                            if game_object.hostile:
+                                location_symbol = "M"
+                            else:
+                                location_symbol = "F"
+                            # TODO: Continue here.
+                output[x].append(location_symbol)
