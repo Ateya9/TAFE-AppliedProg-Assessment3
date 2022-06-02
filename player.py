@@ -39,10 +39,12 @@ class Player(Creature):
                 if target.is_dead():
                     print(f"The {target.name} is now dead.")
                     # TODO: Loot.
+        elif isinstance(target, Player):
+            print(f"Why would you want to do that?")
         elif not target.can_be_attacked:
             print(f"The {target.name} cannot be attacked.")
         else:
-            print("Error.")
+            print("Can't attack that.")
 
     def equip_item(self, item: GameObject) -> None:
         """
