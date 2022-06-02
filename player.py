@@ -46,9 +46,6 @@ class Player(Creature):
                     target.retaliate(self)
                 else:
                     print(f"The {target.name} isn't hostile. You should feel bad for attacking it.")
-                if target.is_dead():
-                    print(f"The {target.name} is now dead.")
-                    # TODO: Loot.
         elif isinstance(target, Player):
             print(f"Why would you want to do that?")
         elif not target.can_be_attacked:
