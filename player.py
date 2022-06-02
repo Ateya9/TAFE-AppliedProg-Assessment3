@@ -8,15 +8,25 @@ from consumable import Consumable
 
 
 class Player(Creature):
-    def __init__(self, name: str, description: str, level: int, max_hp: int, defence: int, attack: int) -> None:
-        super().__init__(name, description, level, max_hp, defence, attack)
+    """
+    An object that represents the player.
+    """
+    def __init__(self, name: str) -> None:
+        """
+        An object that represents the player.
+
+        :param name: The name of the player.
+        """
+        super().__init__(name, "That's you!", 1, 10, 0, 0)
         self.inventory: list[Item] = []
-        self.equipped_weapon = Weapon("rusty short sword",
-                                      "A heavily rusted short sword. It does 2 damage.", True, 0, 2)
-        self.equipped_armour = Armour("torn tunic",
-                                      "A torn tunic. It doesn't look like it'd protect you from damage.", True, 0, 0)
-        self.inventory.append(self.equipped_weapon)
-        self.inventory.append(self.equipped_armour)
+        starter_weapon = Weapon("rusty short sword",
+                                "A heavily rusted short sword. It does 2 damage.", True, 0, 2)
+        starter_armour = Armour("torn tunic",
+                                "A torn tunic. It doesn't look like it'd protect you from damage.", True, 0, 0)
+        self.inventory.append(starter_weapon)
+        self.inventory.append(starter_armour)
+        self.equipped_weapon = starter_weapon
+        self.equipped_armour = starter_armour
         self.inventory.append(Consumable("small healing potion",
                                          "A small healing potion. If drank, it will heal you for 3 hp.", True, 3))
 
