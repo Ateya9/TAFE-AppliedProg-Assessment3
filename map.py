@@ -39,12 +39,6 @@ class Map:
         self.exit_location = self.map_matrix[random.randint(0, 7)][random.randint(0, 7)]
         self.exit_location.contents.append(GameObject("locked door", "I need to find a key to get through this door."))
 
-        self.boss_location = self.exit_location
-        while self.boss_location == self.exit_location and self.boss_location.contains_hostile_NPC():
-            # If the chosen location for the boss is the exit location, or it already has an enemy there, retry.
-            self.boss_location = self.map_matrix[random.randint(0, 7)][random.randint(0, 7)]
-        self.boss_location.contents.append(self.__hostile_NPC_list.get_boss())
-
     def __create_new_location(self) -> Location:
         """
         Creates a new location containing a random number of NPCs, Terrain and a low chance of collectable items.
