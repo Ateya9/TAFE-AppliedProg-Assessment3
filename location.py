@@ -5,7 +5,15 @@ from NPC import NPC
 
 
 class Location:
-    def __init__(self, location_contents: list[GameObject]) -> None:
+    """
+    A location and it's contents in the game world.
+    """
+    def __init__(self, location_contents: list[GameObject] = []) -> None:
+        """
+        A location and it's contents in the game world.
+
+        :param location_contents: The contents of this location. A blank list by default.
+        """
         super().__init__()
         self.contents = location_contents
         self.visible = False
