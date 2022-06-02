@@ -5,12 +5,10 @@ from item import Item
 from weapon import Weapon
 from armour import Armour
 from consumable import Consumable
-from location import Location
 
 
 class Player(Creature):
-    def __init__(self, name: str, description: str, level: int, max_hp: int, defence: int, attack: int,
-                 starting_location: Location) -> None:
+    def __init__(self, name: str, description: str, level: int, max_hp: int, defence: int, attack: int) -> None:
         super().__init__(name, description, level, max_hp, defence, attack)
         self.inventory: list[Item] = []
         self.equipped_weapon = Weapon("rusty short sword",
@@ -21,7 +19,6 @@ class Player(Creature):
         self.inventory.append(self.equipped_armour)
         self.inventory.append(Consumable("small healing potion",
                                          "A small healing potion. If drank, it will heal you for 3 hp.", True, 3))
-        self.current_location = starting_location
 
     def attack_target(self, target: GameObject) -> None:
         """
