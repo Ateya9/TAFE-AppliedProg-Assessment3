@@ -14,6 +14,7 @@ class Map:
     An object that handles creating and managing the game map.
     """
     __MAP_DIMENSIONS = 8
+
     def __init__(self, hostile_NPC_list: HostileNPCs,
                  friendly_NPC_list: FriendlyNPCs,
                  terrain_list: TerrainList,
@@ -60,7 +61,7 @@ class Map:
         if create_terrain_feature:
             location_contents.append(self.__terrain_list.get_random_terrain_feature())
         if create_item:
-            location_contents.append(self.__item_list.get_random_item())
+            location_contents.append(self.__item_list.get_small_potion())
         return Location(location_contents)
 
     def get_starting_location(self) -> Location:
@@ -129,4 +130,3 @@ class Map:
         :return:
         """
         return self.map_matrix[coord[0]][coord[1]]
-
