@@ -13,6 +13,8 @@ class HostileNPCs(NPCList):
         An object containing a list of all available hostile NPCs.
         """
         super().__init__()
+        self.monster_placeholder = NPC("enemy", "Some sort of hostile creature, it's too far away to see what it is.",
+                                       0, 0, 0, 0, True)
         self.add_NPC(NPC("Goblin", "A small runty goblin.", 1, 5, 0, 1, True))
         self.add_NPC(NPC("Massive Spider", "A massive spider! It's about as big as a dog!", 1, 3, 0, 2, True))
         self.add_NPC(NPC("Large Goblin", "A fairly large goblin.", 3, 10, 1, 1, True))
