@@ -4,7 +4,6 @@ from hostile_NPCs import HostileNPCs
 from friendly_NPCs import FriendlyNPCs
 from terrain_list import TerrainList
 from item_list import ItemList
-# TODO: Implement ItemList
 from player import Player
 import random
 
