@@ -4,6 +4,7 @@ from NPC import NPC
 from hostile_NPCs import HostileNPCs
 from friendly_NPCs import FriendlyNPCs
 from terrain_list import TerrainList
+from item import Item
 from item_list import ItemList
 from player import Player
 import random
@@ -133,17 +134,43 @@ class Map:
         return self.map_matrix[coord[0]][coord[1]]
 
     def print_map(self) -> None:
-        output = []
+        print("P = Player")
+        print("E = Enemy")
+        print("I = Item")
+        print("C = A non-hostile creature")
+        print(". = Some sort of terrain")
+        print("? = Unexplored area")
+        top_bottom_row = ["*"]
+        for i in range(Map.__MAP_DIMENSIONS):
+            top_bottom_row.append("-")
+        top_bottom_row.append("*")
+        print(" ".join(top_bottom_row))
         for x in range(Map.__MAP_DIMENSIONS):
-            output.append([])
+            current_line = ["|"]
             for y in range(Map.__MAP_DIMENSIONS):
-                location_symbol = " "
-                for game_object in self.map_matrix[x][y].contents:
-                    if isinstance(game_object, NPC):
-                        if not game_object.is_dead():
-                            if game_object.hostile:
-                                location_symbol = "M"
-                            else:
-                                location_symbol = "F"
-                            # TODO: Continue here.
-                output[x].append(location_symbol)
+                if not self.map_matrix[x][y].visible:
+                    location_symbol = "?"
+                else:
+                    location_contents = self.map_matrix[x][y].contents
+                    # TODO: Improve this so it's not going over the same list of contents multiple times.
+                    if any(isinstance(game_object, Player) for game_object in location_contents):
+                        # If the player is in this Location
+                        location_symbol = "P"
+                    elif any(isinstance(game_object, NPC) and game_object.hostile for game_object in location_contents):
+                        # If there is an enemy in this Location
+                        location_symbol = "E"
+                    elif any(isinstance(game_object, Item) for game_object in location_contents):
+                        # If there is an item at this Location
+                        location_symbol = "I"
+                    elif any(isinstance(game_object, NPC) for game_object in location_contents):
+                        # If there is any other sort of NPC in this Location
+                        location_symbol = "C"
+                    elif any(game_object in self.__terrain_list.list_of_terrain for game_object in location_contents):
+                        # If there is a terrain feature at this Location
+                        location_symbol = "."
+                    else:
+                        location_symbol = " "
+                current_line.append(location_symbol)
+            current_line.append("|")
+            print(" ".join(current_line))
+        print(top_bottom_row)
