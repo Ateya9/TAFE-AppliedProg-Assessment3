@@ -29,6 +29,8 @@ class Player(Creature):
         self.equipped_armour = starter_armour
         self.inventory.append(Consumable("small healing potion",
                                          "A small healing potion. If drank, it will heal you for 3 hp.", True, 3))
+        self.xp = 0
+        self.xp_threshold = self.level * 2
 
     def attack_target(self, target: GameObject) -> None:
         """
@@ -129,3 +131,16 @@ class Player(Creature):
         else:
             print(f"{target.name} can't be put into your inventory.")
         return False
+
+    def level_up(self) -> None:
+        """
+        Increases the player's level by 1, heals them for 999, resets xp to 0 and increases the xp threshold to twice
+        the player's current level.
+
+        :return:
+        """
+        self.max_hp = self.max_hp + 4
+        self.heal(999)
+        self.level = self.level + 1
+        self.xp = 0
+        self.xp_threshold = self.level * 2
