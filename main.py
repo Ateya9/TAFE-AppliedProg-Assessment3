@@ -50,6 +50,7 @@ def move_player_in_direction(direction: str):
 
 
 def examine_object(obj: str):
+    # TODO: When examining something that's dead, instead of printing it's description, print 'A dead *name*'
     pass
 
 
@@ -58,6 +59,7 @@ def examine_direction(direction: str):
 
 
 def clarify_target(target_list: list[GameObject]):
+    # TODO: When listing objects, if the object is an NPC and it's dead, state it as '*name* (dead)'
     pass
 
 
