@@ -213,4 +213,4 @@ class Map:
                 current_line.append(location_symbol)
             current_line.append("|")
             print(" ".join(current_line))
-        print(top_bottom_row)
+        print(" ".join(top_bottom_row))
