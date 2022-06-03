@@ -21,7 +21,7 @@ class HostileNPCs(NPCList):
         self.add_NPC(NPC("Wolf", "A wolf with menacing fangs.", 4, 6, 0, 3, True))
         self.add_NPC(NPC("Ghoul", "A lanky ghoul with sharp claws.", 5, 8, 1, 3, True))
         self.add_NPC(NPC("Skeleton", "A skeleton, but not quite dead.", 6, 5, 0, 5, True))
-        self.add_NPC(NPC("Bear", "A big 'ol bear. You should maybe run away.", 8, 15, 3, 6, True))
+        self.add_NPC(NPC("Bear", "A big 'ol bear.", 8, 15, 3, 6, True))
 
     def get_boss(self) -> NPC:
         return HostileNPCs.boss
