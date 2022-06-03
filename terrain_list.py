@@ -5,7 +5,7 @@ import random
 class TerrainList:
     def __init__(self) -> None:
         super().__init__()
-        self.__list_of_terrain: list[GameObject] = []
+        self.list_of_terrain: list[GameObject] = []
         self.__add_terrain("rock", "A medium sized rock.")
         self.__add_terrain("boulder", "A large boulder.")
         self.__add_terrain("puddle", "A small puddle of water.")
@@ -17,7 +17,7 @@ class TerrainList:
         self.__add_terrain("skull", "A skull.")
 
     def __add_terrain(self, name: str, description: str):
-        self.__list_of_terrain.append(GameObject(name, description))
+        self.list_of_terrain.append(GameObject(name, description))
 
     def get_random_terrain_feature(self):
-        return random.choice(self.__list_of_terrain)
+        return random.choice(self.list_of_terrain)
