@@ -45,6 +45,7 @@ def __move_player(location_coord: tuple[int, int], player_to_move: Player = play
 
 
 def move_player_in_direction(direction: str):
+    # TODO: Player should be able to type 'move exit' to use the exit. If they have the key, spawn boss.
     pass
 
 
