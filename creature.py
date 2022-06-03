@@ -44,8 +44,8 @@ class Creature(GameObject):
         :return:
         """
         final_damage = initial_damage - self.defence
-        if final_damage < 0:
-            final_damage = 0
+        if final_damage < 1:
+            final_damage = 1
         self.hp = self.hp - final_damage
         print(f"The {self.name} takes {final_damage} damage.")
         if self.hp < 0:
