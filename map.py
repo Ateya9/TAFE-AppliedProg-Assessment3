@@ -150,6 +150,14 @@ class Map:
             return None
         return self.map_matrix[coord[0]][coord[1]]
 
+    def get_exit_location_coord(self) -> tuple[int, int]:
+        """
+        Returns the coordinates of the exit location
+
+        :return: tuple[int, int]
+        """
+        return self.get_location_coord(self.exit_location)
+
     def update_visibility(self, coord: tuple[int, int]):
         """
         Updates the visibility of the specified and adjacent Location.
