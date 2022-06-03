@@ -176,7 +176,6 @@ class Map:
             if isinstance(location, Location):
                 location.visible = True
 
-
     def print_map(self) -> None:
         print("P = Player")
         print("E = Enemy")
@@ -189,7 +188,10 @@ class Map:
         for i in range(Map.__MAP_DIMENSIONS):
             top_bottom_row.append("-")
         top_bottom_row.append("*")
-        print(" ".join(top_bottom_row))
+        top_bottom_row = " ".join(top_bottom_row)
+        file = open("Map.txt", "w")
+        file.write(top_bottom_row + "\n")
+        print(top_bottom_row)
         for x in range(Map.__MAP_DIMENSIONS):
             current_line = ["|"]
             for y in range(Map.__MAP_DIMENSIONS):
@@ -220,5 +222,8 @@ class Map:
                         location_symbol = " "
                 current_line.append(location_symbol)
             current_line.append("|")
-            print(" ".join(current_line))
-        print(" ".join(top_bottom_row))
+            current_line = " ".join(current_line)
+            print(current_line)
+            file.write(current_line + "\n")
+        print(top_bottom_row)
+        file.write(top_bottom_row + "\n")
