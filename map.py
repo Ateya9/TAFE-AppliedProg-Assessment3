@@ -126,12 +126,38 @@ class Map:
 
     def get_location(self, coord: tuple[int, int]) -> Location:
         """
-        Returns the Location object at the specified coordinates in the map matrix.
+        Returns the Location object at the specified coordinates in the map matrix. Returns None if Location is out of
+        bounds
 
         :param coord: The coordinates of the object.
         :return:
         """
+        if coord is None:
+            return None
+        elif 0 > coord[0] >= Map.__MAP_DIMENSIONS:
+            return None
+        elif 0 > coord[1] >= Map.__MAP_DIMENSIONS:
+            return None
         return self.map_matrix[coord[0]][coord[1]]
+
+    def update_visibility(self, coord: tuple[int, int]):
+        """
+        Updates the visibility of the specified and adjacent Location.
+
+        :param coord: The coordinate of the area to update.
+        :return:
+        """
+        x = coord[0]
+        y = coord[1]
+        locations_to_update = [self.get_location((x, y)),
+                               self.get_location((x - 1, y)),
+                               self.get_location((x + 1, y)),
+                               self.get_location((x, y - 1)),
+                               self.get_location((x, y + 1))]
+        for location in locations_to_update:
+            if isinstance(location, Location):
+                location.visible = True
+
 
     def print_map(self) -> None:
         print("P = Player")
