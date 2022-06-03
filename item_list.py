@@ -28,13 +28,15 @@ class ItemList:
                                        "An enchanted long sword. It does 10 damage.", True, 11, 10))
 
         self.armour_list.append(Armour("shabby leather armour", "Shoddy leather armour.", True, 1, 1))
-        self.armour_list.append(Armour("old chainmail", "An old set of chainmail.", True, 6, 2))
-        self.armour_list.append(Armour("full plate mail", "A shiny set of plate mail.", True, 11, 4))
+        self.armour_list.append(Armour("old chainmail", "An old set of chainmail.", True, 6, 3))
+        self.armour_list.append(Armour("full plate mail", "A shiny set of plate mail.", True, 11, 6))
 
-        self.small_healing_pot = Consumable("tiny healing potion", "A very small healing potion.", True, 2)
+        self.small_healing_pot = Consumable("tiny healing potion", "A very small healing potion. It heals 3 hp.",
+                                            True, 3)
         self.consumable_list.append(self.small_healing_pot)
-        self.consumable_list.append(Consumable("healing potion", "A healing potion.", True, 4))
-        self.consumable_list.append(Consumable("large healing potion", "A large healing potion.", True, 6))
+        self.consumable_list.append(Consumable("healing potion", "A healing potion. It heals 5 hp.", True, 5))
+        self.consumable_list.append(Consumable("large healing potion", "A large healing potion. It heals 8 hp.",
+                                               True, 8))
 
     def get_exit_key(self) -> Item:
         """
