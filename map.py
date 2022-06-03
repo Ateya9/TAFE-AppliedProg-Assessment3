@@ -19,7 +19,9 @@ class Map:
     def __init__(self, hostile_NPC_list: HostileNPCs,
                  friendly_NPC_list: FriendlyNPCs,
                  terrain_list: TerrainList,
-                 item_list: ItemList) -> None:
+                 item_list: ItemList,
+                 exit_door: GameObject,
+                 exit_key: GameObject) -> None:
         """
         An object that handles creating and managing the game map.
 
@@ -41,12 +43,20 @@ class Map:
                 self.map_matrix[x].append(self.__create_new_location())
 
         randint_max = Map.__MAP_DIMENSIONS - 1
+        # Put the exit (also the entrance) in a random Location.
         self.exit_location = self.map_matrix[random.randint(0, randint_max)][random.randint(0, randint_max)]
-        self.exit_location.contents.append(GameObject("locked door", "I need to find a key to get through this door."))
+        self.exit_location.contents.append(exit_door)
+        self.exit_key = exit_key
+        potential_key_location = self.get_location_coord(self.exit_location)
+        while potential_key_location == self.get_location_coord(self.exit_location):
+            # Pick a random location until the exit location isn't chosen
+            potential_key_location = (random.randint(0, randint_max), random.randint(0, randint_max))
+        # Put the key in this random location.
+        self.get_location(potential_key_location).contents.append(self.exit_key)
 
     def __create_new_location(self) -> Location:
         """
-        Creates a new location containing a random number of NPCs, Terrain and a low chance of collectable items.
+        Creates a new location containing random NPCs, Terrain and a low chance of collectable healing potions.
 
         :return:
         """
@@ -162,6 +172,7 @@ class Map:
     def print_map(self) -> None:
         print("P = Player")
         print("E = Enemy")
+        print("K = The key to the exit")
         print("I = Item")
         print("C = A non-hostile creature")
         print(". = Some sort of terrain")
@@ -185,6 +196,9 @@ class Map:
                     elif any(isinstance(game_object, NPC) and game_object.hostile for game_object in location_contents):
                         # If there is an enemy in this Location
                         location_symbol = "E"
+                    elif any(game_object is self.exit_key for game_object in location_contents):
+                        # If the key to the exit is in this Location
+                        location_symbol = "K"
                     elif any(isinstance(game_object, Item) for game_object in location_contents):
                         # If there is an item at this Location
                         location_symbol = "I"
