@@ -16,8 +16,8 @@ class TerrainList:
         self.__add_terrain("pile of sticks", "A small pile of sticks.")
         self.__add_terrain("skull", "A skull.")
 
-    def __add_terrain(self, name: str, description: str, map_icon: str = "."):
-        self.__list_of_terrain.append(GameObject(name, description, map_icon))
+    def __add_terrain(self, name: str, description: str):
+        self.__list_of_terrain.append(GameObject(name, description))
 
     def get_random_terrain_feature(self):
         return random.choice(self.__list_of_terrain)

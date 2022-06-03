@@ -7,7 +7,7 @@ class NPC(Creature):
     """
     def __init__(self, name: str, description: str, level: int, max_hp: int, defence: int, attack: int, hostile: bool):
         """
-        A non-playable character. Map icon is 'E' if hostile, 'F' if friendly.
+        A non-playable character.
 
         :param name: Name of this NPC.
         :param description: Description of this NPC.
@@ -17,11 +17,7 @@ class NPC(Creature):
         :param attack: How much attack this NPC has.
         :param hostile: Is this NPC hostile toward the player?
         """
-        if hostile:
-            map_icon = "E"
-        else:
-            map_icon = "F"
-        super().__init__(name, description, level, max_hp, defence, attack, map_icon)
+        super().__init__(name, description, level, max_hp, defence, attack)
         self.hostile = hostile
 
     def retaliate(self, player: Creature) -> None:

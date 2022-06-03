@@ -7,8 +7,7 @@ class Creature(GameObject):
     """
     Base class of any creature in the game, including the player.
     """
-    def __init__(self, name: str, description: str, level: int, max_hp: int, defence: int, attack: int,
-                 map_icon: str = "C") -> None:
+    def __init__(self, name: str, description: str, level: int, max_hp: int, defence: int, attack: int) -> None:
         """
         Base class of any creature in the game, including the player.
 
@@ -18,9 +17,8 @@ class Creature(GameObject):
         :param max_hp: How many hit points this creature has.
         :param defence: How much defence this creature has.
         :param attack: How much attack this creature has.
-        :param map_icon: What should represent this object on the games map display.
         """
-        super().__init__(name, description, map_icon)
+        super().__init__(name, description)
         self.level = level
         self.max_hp = max_hp
         self.hp = max_hp
