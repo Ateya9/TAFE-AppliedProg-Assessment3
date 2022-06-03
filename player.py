@@ -137,7 +137,7 @@ class Player(Creature):
         Increases the player's level by 1, heals them for 999, resets xp to 0 and increases the xp threshold to twice
         the player's current level.
 
-        :return:
+        :return: None
         """
         self.max_hp = self.max_hp + 4
         self.heal(999)
