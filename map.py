@@ -124,16 +124,14 @@ class Map:
         """
         if move_to_coord is None:
             return False
-        elif 0 > move_to_coord[0] >= Map.__MAP_DIMENSIONS:
-            return False
-        elif 0 > move_to_coord[1] >= Map.__MAP_DIMENSIONS:
-            return False
-        player_coord = self.get_player_current_location(player)
-        if player_coord is not None:
-            self.map_matrix[player_coord[0]][player_coord[1]].contents.remove(player)
-        self.map_matrix[move_to_coord[0]][move_to_coord[1]].contents.append(player)
-        self.update_visibility(move_to_coord)
-        return True
+        elif 0 <= move_to_coord[0] < Map.__MAP_DIMENSIONS and 0 <= move_to_coord[1] < Map.__MAP_DIMENSIONS:
+            # If the supplied coordinate is within the bounds of the map.
+            player_coord = self.get_player_current_location(player)
+            if player_coord is not None:
+                self.map_matrix[player_coord[0]][player_coord[1]].contents.remove(player)
+            self.map_matrix[move_to_coord[0]][move_to_coord[1]].contents.append(player)
+            self.update_visibility(move_to_coord)
+        return False
 
     def get_location(self, coord: tuple[int, int]) -> Location:
         """
@@ -145,11 +143,10 @@ class Map:
         """
         if coord is None:
             return None
-        elif 0 > coord[0] >= Map.__MAP_DIMENSIONS:
-            return None
-        elif 0 > coord[1] >= Map.__MAP_DIMENSIONS:
-            return None
-        return self.map_matrix[coord[0]][coord[1]]
+        elif 0 <= coord[0] < Map.__MAP_DIMENSIONS and 0 <= coord[1] < Map.__MAP_DIMENSIONS:
+            # If supplied coordinates are within the bounds of the map.
+            return self.map_matrix[coord[0]][coord[1]]
+        return None
 
     def get_exit_location_coord(self) -> tuple[int, int]:
         """
