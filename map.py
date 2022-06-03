@@ -45,6 +45,7 @@ class Map:
         randint_max = Map.__MAP_DIMENSIONS - 1
         # Put the exit (also the entrance) in a random Location.
         self.exit_location = self.map_matrix[random.randint(0, randint_max)][random.randint(0, randint_max)]
+        self.exit_door = exit_door
         self.exit_location.contents.append(exit_door)
         self.exit_key = exit_key
         potential_key_location = self.get_location_coord(self.exit_location)
@@ -180,6 +181,7 @@ class Map:
         print("P = Player")
         print("E = Enemy")
         print("K = The key to the exit")
+        print("X = The exit")
         print("I = Item")
         print("C = A non-hostile creature")
         print(". = Some sort of terrain")
@@ -209,6 +211,9 @@ class Map:
                     elif any(game_object is self.exit_key for game_object in location_contents):
                         # If the key to the exit is in this Location
                         location_symbol = "K"
+                    elif any(game_object is self.exit_door for game_object in location_contents):
+                        # If the exit is in this Location
+                        location_symbol = "X"
                     elif any(isinstance(game_object, Item) for game_object in location_contents):
                         # If there is an item at this Location
                         location_symbol = "I"
