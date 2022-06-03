@@ -229,3 +229,4 @@ class Map:
             file.write(current_line + "\n")
         print(top_bottom_row)
         file.write(top_bottom_row + "\n")
+        file.close()
