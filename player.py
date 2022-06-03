@@ -17,7 +17,7 @@ class Player(Creature):
 
         :param name: The name of the player.
         """
-        super().__init__(name, "That's you!", 1, 10, 0, 0)
+        super().__init__(name, "That's you!", 1, 20, 0, 0)
         self.inventory: list[Item] = []
         starter_weapon = Weapon("rusty short sword",
                                 "A heavily rusted short sword. It does 2 damage.", True, 0, 2)
