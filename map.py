@@ -111,7 +111,6 @@ class Map:
         :param move_to_coord: The coordinates to move to.
         :return:
         """
-        # TODO: Make this location and adjacent locations visible on move.
         if move_to_coord is None:
             return False
         elif 0 > move_to_coord[0] >= Map.__MAP_DIMENSIONS:
@@ -122,6 +121,7 @@ class Map:
         if player_coord is not None:
             self.map_matrix[player_coord[0]][player_coord[1]].contents.remove(player)
         self.map_matrix[move_to_coord[0]][move_to_coord[1]].contents.append(player)
+        self.update_visibility(move_to_coord)
         return True
 
     def get_location(self, coord: tuple[int, int]) -> Location:
