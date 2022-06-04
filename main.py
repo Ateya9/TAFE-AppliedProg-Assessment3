@@ -50,13 +50,59 @@ def move_player_in_direction(direction: str):
 
 
 def examine(obj: str):
-    # TODO: When examining something that's dead, instead of printing it's description, print 'A dead *name*'
     available_directions = ["north", "east", "south", "west"]
-    pass
+    available_options = ["{target}"] + available_directions + ["inventory", "surroundings", "weapon", "armour"]
+    if obj is None:
+        print(f"Available options are: {', '.join(available_options)}")
+        return
+    if obj in available_directions:
+        __examine_direction(obj)
+    else:
+        player_current_location = game_map.get_player_current_location(player)
+        curr_loc_contents = game_map.get_location(player_current_location).contents
+        curr_loc_contents_dict = __create_name_dictionary(curr_loc_contents)
+        player_inv_dict = __create_name_dictionary(player.inventory)
+        if obj == "surroundings":
+            print(f"You can see: {', '.join(curr_loc_contents_dict.keys())}")
+        elif obj == "inventory":
+            print(f"You currently have: {', '.join(player_inv_dict.keys())}")
+        elif obj == "weapon":
+            print(f"Your currently equipped weapon is: {player.equipped_weapon.name}")
+        elif obj == "armour":
+            print(f"Your currently equipped armour is: {player.equipped_armour.name}")
+        elif obj in player_inv_dict:
+            print(f"{player_inv_dict[obj].description}")
+        elif obj in curr_loc_contents_dict:
+            print(f"{curr_loc_contents_dict[obj].description}")
+        else:
+            print(f"I don't see a {obj}.")
 
 
-def examine_direction(direction: str):
-    pass
+def __create_name_dictionary(obj_list: list[GameObject]) -> dict[str, GameObject]:
+    result = {}
+    for game_object in obj_list:
+        result[game_object.name.lower()] = game_object
+    return result
+
+
+def __examine_direction(direction: str):
+    curr_player_coords = game_map.get_player_current_location(player)
+    curr_player_x = curr_player_coords[0]
+    curr_player_y = curr_player_coords[1]
+    match direction:
+        case "north":
+            direction_coords = (curr_player_x, curr_player_y + 1)
+        case "east":
+            direction_coords = (curr_player_x + 1, curr_player_y)
+        case "south":
+            direction_coords = (curr_player_x, curr_player_y - 1)
+        case "west":
+            direction_coords = (curr_player_x - 1, curr_player_y)
+        case _:
+            direction_coords = (curr_player_x, curr_player_y)
+    examine_location = game_map.get_location(direction_coords)
+    location_contents_dict = __create_name_dictionary(examine_location.contents)
+    print(f"You look {direction}. You can see: {', '.join(location_contents_dict.keys())}")
 
 
 def clarify_target(target_list: list[GameObject]):
@@ -84,7 +130,9 @@ def player_input(raw_input_text: str):
             # If the action wasn't supplied a target
             available_actions[action_chunks[0]](None)
         else:
-            available_actions[action_chunks[0]](action_chunks[1])
+            # Join all chucks following the action to account for if there's a space in the target.
+            full_target_string = " ".join(action_chunks[1::])
+            available_actions[action_chunks[0]](full_target_string)
     else:
         print(f"Unknown action: {action_chunks[0]}")
 
@@ -104,6 +152,6 @@ if __name__ == "__main__":
     print("You look behind you and see a large door with a large lock on it. You'll have to find the key to escape.")
     player.name = input(":Please enter your name to continue: ")
     game_map.move_player(player, game_map.get_exit_location_coord())
-    print(f"Ok {player.name}, Type 'help' to get a list of possible actions.")
+    print(f"Ok {player.name}, Type 'help' to get a list of possible actions. Try 'examine surroundings'.")
     while not failed:
         player_input(input("What will you do now? "))
