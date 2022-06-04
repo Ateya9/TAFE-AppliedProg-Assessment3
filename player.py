@@ -4,6 +4,7 @@ from NPC import NPC
 from item import Item
 from weapon import Weapon
 from armour import Armour
+from item_list import ItemList
 from consumable import Consumable
 
 
@@ -11,7 +12,7 @@ class Player(Creature):
     """
     An object that represents the player.
     """
-    def __init__(self, name: str) -> None:
+    def __init__(self, name: str, loot_table: ItemList) -> None:
         """
         An object that represents the player.
 
@@ -31,6 +32,7 @@ class Player(Creature):
                                          "A small healing potion. If drank, it will heal you for 3 hp.", True, 3))
         self.xp = 0
         self.xp_threshold = self.level * 2
+        self.__loot_table = loot_table
 
     def attack_target(self, target: GameObject) -> None:
         """
@@ -42,15 +44,25 @@ class Player(Creature):
         """
         if target.can_be_attacked:
             if isinstance(target, NPC):
-                target.take_damage(self.attack)
-                print(f"You attack the {target.name}.")
-                if target.hostile:
-                    target.retaliate(self)
-                    if self.is_dead():
-                        # If the player is dead, don't continue and exit immediately.
-                        return
+                if target.is_dead():
+                    print(f"The {target.name} is already dead.")
                 else:
-                    print(f"The {target.name} isn't hostile. You should feel bad for attacking it.")
+                    print(f"You attack the {target.name}.")
+                    target.take_damage(self.attack)
+                    if target.hostile:
+                        target.retaliate(self)
+                        if self.is_dead():
+                            # If the player is dead, exit immediately.
+                            return
+                    else:
+                        print(f"The {target.name} isn't hostile. You should feel bad for attacking it.")
+                    if target.is_dead():
+                        print(f"The {target.name} is now dead.")
+                        loot = self.__loot_table.get_random_item_biased((self.level - 2, self.level + 1))
+                        while loot in self.inventory and isinstance(loot, (Weapon, Armour)):
+                            loot = self.__loot_table.get_random_item_biased((self.level - 2, self.level + 1))
+                        self.add_item_to_inv(loot)
+                        print(f"You looted a {loot.name} off of the {target.name}.")
             elif isinstance(target, Player):
                 print(f"Why would you want to do that?")
         else:
