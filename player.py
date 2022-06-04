@@ -17,6 +17,7 @@ class Player(Creature):
         An object that represents the player.
 
         :param name: The name of the player.
+        :param loot_table: The main item_list object.
         """
         super().__init__(name, "That's you!", 1, 20, 0, 0)
         self.inventory: list[Item] = []
