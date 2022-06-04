@@ -28,6 +28,6 @@ class NPC(Creature):
         """
         if self.can_be_attacked and self.hostile:
             if not self.is_dead():
+                print(f"The {self.name} retaliates and attacks you.")
                 player.take_damage(self.attack)
-                print(f"The {self.name} retaliates and hits you for {self.attack} damage.")
                 print(f"You now have {player.hp} remaining.")
