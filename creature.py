@@ -50,6 +50,8 @@ class Creature(GameObject):
         print(f"The {self.name} takes {final_damage} damage.")
         if self.hp < 0:
             self.hp = 0
+        if self.is_dead():
+            self.name = f"{self.name} (Dead)"
 
     def heal(self, amount: int) -> None:
         """
