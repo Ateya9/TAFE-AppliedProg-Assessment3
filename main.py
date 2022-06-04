@@ -91,16 +91,19 @@ def __examine_direction(direction: str):
     curr_player_y = curr_player_coords[1]
     match direction:
         case "north":
-            direction_coords = (curr_player_x, curr_player_y + 1)
+            direction_coords = (curr_player_x, curr_player_y - 1)
         case "east":
             direction_coords = (curr_player_x + 1, curr_player_y)
         case "south":
-            direction_coords = (curr_player_x, curr_player_y - 1)
+            direction_coords = (curr_player_x, curr_player_y + 1)
         case "west":
             direction_coords = (curr_player_x - 1, curr_player_y)
         case _:
             direction_coords = (curr_player_x, curr_player_y)
     examine_location = game_map.get_location(direction_coords)
+    if examine_location is None:
+        print(f"You look {direction}. You can see the outer cave wall.")
+        return
     location_contents_dict = __create_name_dictionary(examine_location.contents)
     print(f"You look {direction}. You can see: {', '.join(location_contents_dict.keys())}")
 
@@ -151,7 +154,8 @@ if __name__ == "__main__":
     print("You wake up in cold cave. Your head is throbbing and you can't remember how you got here.")
     print("You look behind you and see a large door with a large lock on it. You'll have to find the key to escape.")
     player.name = input(":Please enter your name to continue: ")
-    game_map.move_player(player, game_map.get_exit_location_coord())
+    # game_map.move_player(player, game_map.get_exit_location_coord())
+    game_map.move_player(player, (0, 0))
     print(f"Ok {player.name}, Type 'help' to get a list of possible actions. Try 'examine surroundings'.")
     while not failed:
         player_input(input("What will you do now? "))
