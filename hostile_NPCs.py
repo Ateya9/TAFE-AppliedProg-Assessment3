@@ -20,7 +20,7 @@ class HostileNPCs(NPCList):
         self.add_NPC(NPC("Large Goblin", "A fairly large goblin.", 3, 6, 1, 1, True))
         self.add_NPC(NPC("Wolf", "A wolf with menacing fangs.", 4, 6, 0, 3, True))
         self.add_NPC(NPC("Ghoul", "A lanky ghoul with sharp claws.", 5, 8, 1, 3, True))
-        self.add_NPC(NPC("Skeleton", "A skeleton, but not quite dead.", 6, 6, 0, 5, True))
+        self.add_NPC(NPC("Skeleton", "Someone who's become a hostile undead.", 6, 6, 0, 5, True))
         self.add_NPC(NPC("Giant Bat", "A giant bat. It looks angry.", 7, 10, 1, 4, True))
         self.add_NPC(NPC("Bear", "A big 'ol bear.", 8, 15, 3, 6, True))
 
