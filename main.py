@@ -66,7 +66,7 @@ def clarify_target(target_list: list[GameObject]):
 
 def display_help():
     actions = available_actions.keys()
-    print(", ".join(actions))
+    print(f"Available options are: {', '.join(actions)}")
 
 
 def player_input(raw_input_text: str):
