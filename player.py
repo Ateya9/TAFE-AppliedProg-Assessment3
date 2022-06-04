@@ -40,20 +40,21 @@ class Player(Creature):
         :param target: Attempt to attack this target.
         :return:
         """
-        if isinstance(target, NPC):
-            if target.can_be_attacked:
+        if target.can_be_attacked:
+            if isinstance(target, NPC):
                 target.take_damage(self.attack)
                 print(f"You attack the {target.name}.")
                 if target.hostile:
                     target.retaliate(self)
+                    if self.is_dead():
+                        # If the player is dead, don't continue and exit immediately.
+                        return
                 else:
                     print(f"The {target.name} isn't hostile. You should feel bad for attacking it.")
-        elif isinstance(target, Player):
-            print(f"Why would you want to do that?")
-        elif not target.can_be_attacked:
-            print(f"The {target.name} cannot be attacked.")
+            elif isinstance(target, Player):
+                print(f"Why would you want to do that?")
         else:
-            print("Can't attack that.")
+            print(f"The {target.name} cannot be attacked.")
 
     def equip_item(self, item: GameObject) -> None:
         """
