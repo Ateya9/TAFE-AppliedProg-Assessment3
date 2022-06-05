@@ -61,23 +61,16 @@ class ItemList:
         :param level_range: The range of acceptable leveled items.
         :return:
         """
+        # TODO: Implement only returning items inside of the supplied level range.
         type_of_item = random.randint(0, 2)
         result_item = self.small_healing_pot
         match type_of_item:
             case 0:
                 # Weapon is chosen.
-                min_range = self.__check_min_of_desired_level(level_range, self.weapon_list)
                 result_item = random.choice(self.weapon_list)
-                while not (min_range <= result_item.estimated_level <= level_range[1]):
-                    # While the random choice is not inside the desired level range.
-                    result_item = random.choice(self.weapon_list)
             case 1:
                 # Armour is chosen.
-                min_range = self.__check_min_of_desired_level(level_range, self.armour_list)
                 result_item = random.choice(self.armour_list)
-                while not (min_range <= result_item.estimated_level <= level_range[1]):
-                    # While the random choice is not inside the desired level range.
-                    result_item = random.choice(self.armour_list)
             case 2:
                 # Consumable is chosen.
                 result_item = random.choice(self.consumable_list)
