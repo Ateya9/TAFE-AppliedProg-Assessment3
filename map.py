@@ -191,9 +191,11 @@ class Map:
         file = open("Map.txt", "w")
         file.write(top_bottom_row + "\n")
         print(top_bottom_row)
-        for x in range(Map.__MAP_DIMENSIONS):
+        # Because of the way the matrix is set up, the axes aren't correct unless we rotate the map 90 degrees.
+        # to do this, we need to start at the last y coord and go through the x.
+        for y in range(Map.__MAP_DIMENSIONS - 1, -1, -1):
             current_line = ["|"]
-            for y in range(Map.__MAP_DIMENSIONS):
+            for x in range(Map.__MAP_DIMENSIONS):
                 if not self.map_matrix[x][y].visible:
                     location_symbol = "?"
                 else:
