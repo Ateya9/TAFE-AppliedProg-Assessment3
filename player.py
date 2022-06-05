@@ -121,7 +121,7 @@ class Player(Creature):
                 result.append(item)
         return result
 
-    def add_item_to_inv(self, target: GameObject) -> bool:
+    def add_item_to_inv(self, target: GameObject, player_feedback: bool = True) -> bool:
         """
         Attempts to add the specified GameObject to the player's inventory. If the GameObject isn't an item, prints a
         message stating that it cannot be added to the inventory. If the GameObject is a Weapon or Armour, check if
@@ -132,22 +132,26 @@ class Player(Creature):
         :param target: Attempt to place this object into the player's inventory.
         :return:
         """
+        success = False
+        feedback = ""
         if isinstance(target, Item):
             if isinstance(target, Weapon) or isinstance(target, Armour):
                 if target in self.inventory:
-                    print(f"You've already got a {target.name} in your inventory.")
-                    return False
+                    feedback = f"You've already got a {target.name} in your inventory."
+                    success = False
                 else:
                     self.inventory.append(target)
-                    print(f"You put the {target.name} into your inventory.")
-                    return True
+                    feedback = f"You put the {target.name} into your inventory."
+                    success = True
             elif isinstance(target, Consumable):
                 self.inventory.append(target)
-                print(f"You put the {target.name} into your inventory.")
-                return True
+                feedback = f"You put the {target.name} into your inventory."
+                success = True
         else:
-            print(f"{target.name} can't be put into your inventory.")
-        return False
+            feedback = f"{target.name} can't be put into your inventory."
+        if player_feedback:
+            print(feedback)
+        return success
 
     def level_up(self) -> None:
         """
