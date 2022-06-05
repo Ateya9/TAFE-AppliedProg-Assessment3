@@ -62,7 +62,7 @@ class Player(Creature):
                         loot = self.__loot_table.get_random_item_biased((self.level - 2, self.level + 1))
                         while loot in self.inventory and isinstance(loot, (Weapon, Armour)):
                             loot = self.__loot_table.get_random_item_biased((self.level - 2, self.level + 1))
-                        self.add_item_to_inv(loot)
+                        self.add_item_to_inv(loot, False)
                         print(f"You looted a {loot.name} off of the {target.name}.")
             elif isinstance(target, Player):
                 print(f"Why would you want to do that?")
@@ -130,7 +130,9 @@ class Player(Creature):
         Consumable.
 
         :param target: Attempt to place this object into the player's inventory.
-        :return:
+        :param player_feedback: Whether feedback should be printed to the player when attempting to add the target to
+        inventory.
+        :return: True or False depending on whether the target was successfully added to the player's inventory.
         """
         success = False
         feedback = ""
