@@ -5,6 +5,7 @@ from hostile_NPCs import HostileNPCs
 from friendly_NPCs import FriendlyNPCs
 from terrain_list import TerrainList
 from item import Item
+from consumable import Consumable
 from item_list import ItemList
 
 
@@ -24,8 +25,24 @@ def player_attack(target: str, attacking_player: Player = player):
 
 
 def player_use_item(item: str):
-    # TODO: Player needs to be able to 'use' the exit key to try and exit.
-    pass
+    player_inv_dict = __create_name_dictionary(player.inventory)
+    if item in player_inv_dict:
+        item_obj = player_inv_dict[item]
+        if item_obj == exit_key:
+            player_curr_loc_coord = game_map.get_player_current_location(player)
+            player_curr_loc_contents = game_map.get_location(player_curr_loc_coord)
+            if exit_door in player_curr_loc_contents:
+                # TODO: spawn end boss.
+                pass
+            else:
+                print(f"You must be at the {exit_door.name} to use the {exit_key.name}.")
+        elif isinstance(item_obj, Consumable):
+            item_obj.use_item(player)
+            print(f"You use the {item_obj.name} and it heals you for {item_obj.heal_amount}.")
+            print(f"You are now on {player.hp}/{player.max_hp} hp.")
+            player.inventory.remove(item_obj)
+        else:
+            print(f"{item} isn't something you can use.")
 
 
 def player_equip_item(item: str):
