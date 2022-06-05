@@ -30,4 +30,4 @@ class NPC(Creature):
             if not self.is_dead():
                 print(f"The {self.name} retaliates and attacks you.")
                 player.take_damage(self.attack)
-                print(f"You now have {player.hp} remaining.")
+                print(f"You now have {player.hp}/{player.max_hp} hp remaining.")
