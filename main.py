@@ -33,8 +33,13 @@ def player_equip_item(item: str):
 
 
 def player_pick_up_item(item: str):
-    # TODO: This should be automatic as you move onto a space with an item.
-    pass
+    player_curr_loc_coord = game_map.get_player_current_location(player)
+    player_curr_loc = game_map.get_location(player_curr_loc_coord)
+    current_loc_contents_dict = __create_name_dictionary(player_curr_loc.contents)
+    if item in current_loc_contents_dict:
+        player.add_item_to_inv(current_loc_contents_dict[item])
+    else:
+        print(f"I can't see a {item}.")
 
 
 def get_inventory() -> list[Item]:
@@ -42,6 +47,7 @@ def get_inventory() -> list[Item]:
 
 
 def move_player_in_direction(direction: str):
+    # TODO: If there's a hostile enemy in this space, don't allow movement.
     if direction not in game_map.directions:
         print(f"Invalid direction {direction}. Valid directions are: {', '.join(game_map.directions)}.")
     player_location_coord = game_map.get_player_current_location(player)
@@ -75,7 +81,7 @@ def examine(obj: str):
         curr_loc_contents_dict = __create_name_dictionary(curr_loc_contents)
         player_inv_dict = __create_name_dictionary(player.inventory)
         if obj == "surroundings":
-            print(f"You can see: {', '.join(curr_loc_contents_dict.keys())}")
+            print(f"You look around you. You can see: {', '.join(curr_loc_contents_dict.keys())}")
         elif obj == "inventory":
             print(f"You currently have: {', '.join(player_inv_dict.keys())}")
         elif obj == "weapon":
@@ -160,5 +166,9 @@ if __name__ == "__main__":
     # game_map.move_player(player, (0, 0))
     print(f"Ok {player.name}, Type 'help' to get a list of possible actions.")
     examine("surroundings")
-    while not failed:
+    while not (failed or player.is_dead()):
         player_input(input("What will you do now? "))
+    if player.is_dead():
+        print(f"You died.")
+    if failed:
+        print(f"Sorry, you have failed to complete the game. Better luck next time.")
