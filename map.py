@@ -132,6 +132,7 @@ class Map:
                 self.map_matrix[player_coord[0]][player_coord[1]].contents.remove(player)
             self.map_matrix[move_to_coord[0]][move_to_coord[1]].contents.append(player)
             self.update_visibility(move_to_coord)
+            return True
         return False
 
     def get_location(self, coord: tuple[int, int]) -> Location | None:
