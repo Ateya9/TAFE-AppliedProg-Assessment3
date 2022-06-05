@@ -136,11 +136,14 @@ class Player(Creature):
             if isinstance(target, Weapon) or isinstance(target, Armour):
                 if target in self.inventory:
                     print(f"You've already got a {target.name} in your inventory.")
+                    return False
                 else:
                     self.inventory.append(target)
+                    print(f"You put the {target.name} into your inventory.")
                     return True
             elif isinstance(target, Consumable):
                 self.inventory.append(target)
+                print(f"You put the {target.name} into your inventory.")
                 return True
         else:
             print(f"{target.name} can't be put into your inventory.")
