@@ -86,21 +86,22 @@ def __create_name_dictionary(obj_list: list[GameObject]) -> dict[str, GameObject
 
 
 def __examine_direction(direction: str):
-    curr_player_coords = game_map.get_player_current_location(player)
-    curr_player_x = curr_player_coords[0]
-    curr_player_y = curr_player_coords[1]
+    curr_player_coord = game_map.get_player_current_location(player)
+    curr_player_x = curr_player_coord[0]
+    curr_player_y = curr_player_coord[1]
     match direction:
         case "north":
-            direction_coords = (curr_player_x, curr_player_y - 1)
+            direction_coord = (curr_player_x, curr_player_y - 1)
         case "east":
-            direction_coords = (curr_player_x + 1, curr_player_y)
+            direction_coord = (curr_player_x + 1, curr_player_y)
         case "south":
-            direction_coords = (curr_player_x, curr_player_y + 1)
+            direction_coord = (curr_player_x, curr_player_y + 1)
         case "west":
-            direction_coords = (curr_player_x - 1, curr_player_y)
+            direction_coord = (curr_player_x - 1, curr_player_y)
         case _:
-            direction_coords = (curr_player_x, curr_player_y)
-    examine_location = game_map.get_location(direction_coords)
+            print(f"Not sure which direction {direction} is.")
+            return
+    examine_location = game_map.get_location(direction_coord)
     if examine_location is None:
         print(f"You look {direction}. You can see the outer cave wall.")
         return
@@ -143,9 +144,11 @@ def player_input(raw_input_text: str):
 available_actions = {"move": move_player_in_direction,
                      "attack": player_attack,
                      "examine": examine,
+                     "look": examine,
                      "drink": player_use_item,
                      "equip": player_equip_item,
                      "collect": player_pick_up_item,
+                     "take": player_pick_up_item,
                      "map": game_map.print_map,
                      "help": display_help}
 
