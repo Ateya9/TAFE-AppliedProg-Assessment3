@@ -16,8 +16,8 @@ class Map:
     """
     __MAP_DIMENSIONS = 8
 
-    def __init__(self, hostile_NPC_list: HostileNPCs,
-                 friendly_NPC_list: FriendlyNPCs,
+    def __init__(self, hostile_npc_list: HostileNPCs,
+                 friendly_npc_list: FriendlyNPCs,
                  terrain_list: TerrainList,
                  item_list: ItemList,
                  exit_door: GameObject,
@@ -25,15 +25,15 @@ class Map:
         """
         An object that handles creating and managing the game map.
 
-        :param hostile_NPC_list: The main HostileNPCs object.
-        :param friendly_NPC_list: The main FriendlyNPCs object.
+        :param hostile_npc_list: The main HostileNPCs object.
+        :param friendly_npc_list: The main FriendlyNPCs object.
         :param terrain_list: The main TerrainList object.
         :param item_list: The main ItemList object.
         """
         super().__init__()
         self.map_matrix: list[list[Location]] = []
-        self.__hostile_NPC_list = hostile_NPC_list
-        self.__friendly_NPC_list = friendly_NPC_list
+        self.__hostile_NPC_list = hostile_npc_list
+        self.__friendly_NPC_list = friendly_npc_list
         self.__terrain_list = terrain_list
         self.__item_list = item_list
 
@@ -62,13 +62,13 @@ class Map:
         :return:
         """
         location_contents = []
-        create_hostile_NPC = (random.randint(1, 10) <= 3)
-        create_friendly_NPC = (random.randint(1, 10) <= 3)
+        create_hostile_npc = (random.randint(1, 10) <= 3)
+        create_friendly_npc = (random.randint(1, 10) <= 3)
         create_terrain_feature = (random.randint(1, 10) <= 7)
         create_item = (random.randint(1, 10) <= 2)
-        if create_hostile_NPC:
+        if create_hostile_npc:
             location_contents.append(self.__hostile_NPC_list.monster_placeholder)
-        if create_friendly_NPC:
+        if create_friendly_npc:
             location_contents.append(self.__friendly_NPC_list.get_random_NPC())
         if create_terrain_feature:
             location_contents.append(self.__terrain_list.get_random_terrain_feature())
@@ -84,7 +84,7 @@ class Map:
         """
         return self.exit_location
 
-    def get_location_coord(self, location: Location) -> tuple[int, int]:
+    def get_location_coord(self, location: Location) -> tuple[int, int] | None:
         """
         Gets the coordinates of the supplied location within the map matrix. If the supplied location can't be found,
         returns None.
@@ -95,12 +95,12 @@ class Map:
         for x in range(Map.__MAP_DIMENSIONS):
             for y in range(Map.__MAP_DIMENSIONS):
                 if self.map_matrix[x][y] == location:
-                    return (x, y)
+                    return x, y
         return None
 
-    def get_player_current_location(self, player: Player) -> tuple[int, int]:
+    def get_player_current_location(self, player: Player) -> tuple[int, int] | None:
         """
-        Finds the supplied player object's location in the map matrix and returns those coords. Returns None if the
+        Finds the supplied player object's location in the map matrix and returns those coordinates. Returns None if the
         player cannot be found.
 
         :param player: The player to find.
@@ -133,7 +133,7 @@ class Map:
             self.update_visibility(move_to_coord)
         return False
 
-    def get_location(self, coord: tuple[int, int]) -> Location:
+    def get_location(self, coord: tuple[int, int]) -> Location | None:
         """
         Returns the Location object at the specified coordinates in the map matrix. Returns None if Location is out of
         bounds
@@ -174,25 +174,25 @@ class Map:
             if isinstance(location, Location):
                 location.visible = True
 
-    def convert_coords_using_direction(self, direction: str, coords: tuple[int, int]) -> tuple[int, int]:
+    def convert_coord_using_direction(self, direction: str, coord: tuple[int, int]) -> tuple[int, int] | None:
         """
         Returns the coordinate of a location based on the direction and starting coordinate supplied.
         Returns None if the supplied direction is invalid.
 
         :param direction: The direction of the location you want.
-        :param coords: The starting coordinate.
+        :param coord: The starting coordinate.
         :return: tuple[int, int] or None
         """
         dir_lower = direction.lower()
         match dir_lower:
             case "north":
-                return coords[0], coords[1] + 1
+                return coord[0], coord[1] + 1
             case "east":
-                return coords[0] + 1, coords[1]
+                return coord[0] + 1, coord[1]
             case "south":
-                return coords[0], coords[1] - 1
+                return coord[0], coord[1] - 1
             case "west":
-                return coords[0] - 1, coords[1]
+                return coord[0] - 1, coord[1]
             case _:
                 return None
 
