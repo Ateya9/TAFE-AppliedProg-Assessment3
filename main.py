@@ -156,8 +156,9 @@ if __name__ == "__main__":
     print("You wake up in cold cave. Your head is throbbing and you can't remember how you got here.")
     print("You look behind you and see a large door with a large lock on it. You'll have to find the key to escape.")
     player.name = input(":Please enter your name to continue: ")
-    # game_map.move_player(player, game_map.get_exit_location_coord())
-    game_map.move_player(player, (0, 0))
-    print(f"Ok {player.name}, Type 'help' to get a list of possible actions. Try 'examine surroundings'.")
+    game_map.move_player(player, game_map.get_exit_location_coord())
+    # game_map.move_player(player, (0, 0))
+    print(f"Ok {player.name}, Type 'help' to get a list of possible actions.")
+    examine("surroundings")
     while not failed:
         player_input(input("What will you do now? "))
