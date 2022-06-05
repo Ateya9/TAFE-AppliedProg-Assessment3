@@ -174,6 +174,28 @@ class Map:
             if isinstance(location, Location):
                 location.visible = True
 
+    def convert_coords_using_direction(self, direction: str, coords: tuple[int, int]) -> tuple[int, int]:
+        """
+        Returns the coordinate of a location based on the direction and starting coordinate supplied.
+        Returns None if the supplied direction is invalid.
+
+        :param direction: The direction of the location you want.
+        :param coords: The starting coordinate.
+        :return: tuple[int, int] or None
+        """
+        dir_lower = direction.lower()
+        match dir_lower:
+            case "north":
+                return coords[0], coords[1] + 1
+            case "east":
+                return coords[0] + 1, coords[1]
+            case "south":
+                return coords[0], coords[1] - 1
+            case "west":
+                return coords[0] - 1, coords[1]
+            case _:
+                return None
+
     def print_map(self) -> None:
         print("P = Player")
         print("E = Enemy")
