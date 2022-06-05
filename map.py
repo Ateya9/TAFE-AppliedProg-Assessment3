@@ -36,6 +36,7 @@ class Map:
         self.__friendly_NPC_list = friendly_npc_list
         self.__terrain_list = terrain_list
         self.__item_list = item_list
+        self.directions = ["north", "east", "south", "west"]
 
         for x in range(Map.__MAP_DIMENSIONS):
             self.map_matrix.append([])
