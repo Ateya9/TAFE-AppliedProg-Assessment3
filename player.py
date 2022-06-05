@@ -162,7 +162,7 @@ class Player(Creature):
 
         :return: None
         """
-        self.max_hp = self.max_hp + 4
+        self.max_hp = self.max_hp + 10
         self.heal(999)
         self.level = self.level + 1
         self.xp = 0
