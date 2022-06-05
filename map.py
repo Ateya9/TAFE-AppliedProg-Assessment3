@@ -164,13 +164,11 @@ class Map:
         :param coord: The coordinate of the area to update.
         :return:
         """
-        x = coord[0]
-        y = coord[1]
-        locations_to_update = [self.get_location((x, y)),
-                               self.get_location((x - 1, y)),
-                               self.get_location((x + 1, y)),
-                               self.get_location((x, y - 1)),
-                               self.get_location((x, y + 1))]
+        locations_to_update = [self.get_location(coord),
+                               self.get_location(self.convert_coord_using_direction("north", coord)),
+                               self.get_location(self.convert_coord_using_direction("east", coord)),
+                               self.get_location(self.convert_coord_using_direction("south", coord)),
+                               self.get_location(self.convert_coord_using_direction("west", coord))]
         for location in locations_to_update:
             if isinstance(location, Location):
                 location.visible = True
@@ -185,6 +183,8 @@ class Map:
         :return: tuple[int, int] or None
         """
         dir_lower = direction.lower()
+        if dir_lower not in self.directions:
+            return None
         match dir_lower:
             case "north":
                 return coord[0], coord[1] + 1
