@@ -24,6 +24,7 @@ def player_attack(target: str, attacking_player: Player = player):
 
 
 def player_use_item(item: str):
+    # TODO: Player needs to be able to 'use' the exit key to try and exit.
     pass
 
 
@@ -40,17 +41,28 @@ def get_inventory() -> list[Item]:
     return player.inventory
 
 
-def __move_player(location_coord: tuple[int, int], player_to_move: Player = player):
-    pass
-
-
 def move_player_in_direction(direction: str):
-    # TODO: Player should be able to type 'move exit' to use the exit. If they have the key, spawn boss.
-    pass
+    if direction not in game_map.directions:
+        print(f"Invalid direction {direction}. Valid directions are: {', '.join(game_map.directions)}.")
+    player_location_coord = game_map.get_player_current_location(player)
+    if player_location_coord is None:
+        player_start_loc = game_map.get_starting_location()
+        game_map.move_player(player, game_map.get_location_coord(player_start_loc))
+    else:
+        player_move_to_coord = game_map.convert_coord_using_direction(direction, player_location_coord)
+        if player_move_to_coord is None:
+            print(f"You can't move {direction}.")
+        else:
+            move_successful = game_map.move_player(player, player_move_to_coord)
+            if move_successful:
+                print(f"You move {direction}.")
+                examine("surroundings")
+            else:
+                print(f"You can't move that way. That's the cave wall.")
 
 
 def examine(obj: str):
-    available_directions = ["north", "east", "south", "west"]
+    available_directions = game_map.directions
     available_options = ["{target}"] + available_directions + ["inventory", "surroundings", "weapon", "armour"]
     if obj is None:
         print(f"Available options are: {', '.join(available_options)}")
@@ -132,7 +144,7 @@ available_actions = {"move": move_player_in_direction,
                      "attack": player_attack,
                      "examine": examine,
                      "look": examine,
-                     "drink": player_use_item,
+                     "use": player_use_item,
                      "equip": player_equip_item,
                      "collect": player_pick_up_item,
                      "take": player_pick_up_item,
