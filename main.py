@@ -38,7 +38,7 @@ def player_use_item(item: str):
                 print(f"You must be at the {exit_door.name} to use the {exit_key.name}.")
         elif isinstance(item_obj, Consumable):
             item_obj.use_item(player)
-            print(f"You use the {item_obj.name} and it heals you for {item_obj.heal_amount}.")
+            print(f"You use the {item_obj.name} and it heals you for {item_obj.heal_amount} hp.")
             print(f"You are now on {player.hp}/{player.max_hp} hp.")
             player.inventory.remove(item_obj)
         else:
@@ -130,11 +130,6 @@ def __examine_direction(direction: str):
         return
     location_contents_dict = __create_name_dictionary(examine_location.contents)
     print(f"You look {direction}. You can see: {', '.join(location_contents_dict.keys())}")
-
-
-def clarify_target(target_list: list[GameObject]):
-    # TODO: When listing objects, if the object is an NPC and it's dead, state it as '*name* (dead)'
-    pass
 
 
 def display_help():
