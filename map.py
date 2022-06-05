@@ -227,12 +227,12 @@ class Map:
                     if any(isinstance(game_object, Player) for game_object in location_contents):
                         # If the player is in this Location
                         location_symbol = "P"
-                    elif any(isinstance(game_object, NPC) and game_object.hostile for game_object in location_contents):
-                        # If there is an enemy in this Location
-                        location_symbol = "E"
                     elif any(game_object is self.exit_key for game_object in location_contents):
                         # If the key to the exit is in this Location
                         location_symbol = "K"
+                    elif any(isinstance(game_object, NPC) and game_object.hostile for game_object in location_contents):
+                        # If there is an enemy in this Location
+                        location_symbol = "E"
                     elif any(game_object is self.exit_door for game_object in location_contents):
                         # If the exit is in this Location
                         location_symbol = "X"
