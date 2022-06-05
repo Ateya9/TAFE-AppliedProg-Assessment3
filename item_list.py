@@ -65,13 +65,39 @@ class ItemList:
         result_item = self.small_healing_pot
         match type_of_item:
             case 0:
+                # Weapon is chosen.
+                min_range = self.__check_min_of_desired_level(level_range, self.weapon_list)
                 result_item = random.choice(self.weapon_list)
-                while level_range[0] <= result_item.estimated_level <= level_range[1]:
+                while not (min_range <= result_item.estimated_level <= level_range[1]):
+                    # While the random choice is not inside the desired level range.
                     result_item = random.choice(self.weapon_list)
             case 1:
+                # Armour is chosen.
+                min_range = self.__check_min_of_desired_level(level_range, self.armour_list)
                 result_item = random.choice(self.armour_list)
-                while level_range[0] <= result_item.estimated_level <= level_range[1]:
+                while not (min_range <= result_item.estimated_level <= level_range[1]):
+                    # While the random choice is not inside the desired level range.
                     result_item = random.choice(self.armour_list)
             case 2:
+                # Consumable is chosen.
                 result_item = random.choice(self.consumable_list)
         return result_item
+
+    def __check_min_of_desired_level(self, level_range: tuple[int, int], list_to_check: list) -> int:
+        """
+        Checks whether the minimum of the level range is higher than the maximum level item in a list of items.
+        This is to prevent an infinite loop if the player is too high of a level to get relevant loot.
+
+        :param level_range: The level_range that's passed into get_random_item_biased
+        :param list_to_check: Which list of items to check the max level for.
+        :return:
+        """
+        max_item_level = 0
+        for item in list_to_check:
+            if item.estimated_level > max_item_level:
+                max_item_level = item.estimated_level
+        if level_range[0] > max_item_level:
+            min_range = max_item_level
+        else:
+            min_range = level_range[0]
+        return min_range
