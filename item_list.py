@@ -66,11 +66,11 @@ class ItemList:
         match type_of_item:
             case 0:
                 result_item = random.choice(self.weapon_list)
-                while level_range[0] > result_item.estimated_level > level_range[1]:
+                while level_range[0] <= result_item.estimated_level <= level_range[1]:
                     result_item = random.choice(self.weapon_list)
             case 1:
                 result_item = random.choice(self.armour_list)
-                while level_range[0] > result_item.estimated_level > level_range[1]:
+                while level_range[0] <= result_item.estimated_level <= level_range[1]:
                     result_item = random.choice(self.armour_list)
             case 2:
                 result_item = random.choice(self.consumable_list)
