@@ -8,7 +8,7 @@ from item import Item
 from item_list import ItemList
 
 
-failed = False
+success = False
 hostile_npc_list = HostileNPCs()
 friendly_NPC_list = FriendlyNPCs()
 terrain_list = TerrainList()
@@ -29,7 +29,11 @@ def player_use_item(item: str):
 
 
 def player_equip_item(item: str):
-    pass
+    player_inv_dict = __create_name_dictionary(player.inventory)
+    if item in player_inv_dict:
+        player.equip_item(player_inv_dict[item])
+    else:
+        print(f"There isn't a {item} in your inventory.")
 
 
 def player_pick_up_item(item: str):
@@ -42,12 +46,9 @@ def player_pick_up_item(item: str):
         print(f"I can't see a {item}.")
 
 
-def get_inventory() -> list[Item]:
-    return player.inventory
-
-
 def move_player_in_direction(direction: str):
     # TODO: If there's a hostile enemy in this space, don't allow movement.
+    # TODO: Substitute enemy placeholder with actual enemy upon moving into location.
     if direction not in game_map.directions:
         print(f"Invalid direction {direction}. Valid directions are: {', '.join(game_map.directions)}.")
     player_location_coord = game_map.get_player_current_location(player)
@@ -166,9 +167,10 @@ if __name__ == "__main__":
     # game_map.move_player(player, (0, 0))
     print(f"Ok {player.name}, Type 'help' to get a list of possible actions.")
     examine("surroundings")
-    while not (failed or player.is_dead()):
+    while not (success or player.is_dead()):
         player_input(input("What will you do now? "))
     if player.is_dead():
         print(f"You died.")
-    if failed:
         print(f"Sorry, you have failed to complete the game. Better luck next time.")
+    else:
+        print("Congratulations! You escaped the cave. Well done.")
